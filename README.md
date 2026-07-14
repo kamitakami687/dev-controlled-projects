@@ -37,6 +37,13 @@ wallet creation, USDC/EURC transfers, and Circle Gateway's cross-chain Unified B
   `2`, default `1`) so either wallet can deposit into or spend from its own cross-chain Unified
   Balance on Arc Testnet.
 
+- **`memos/send-with-memo.ts`** — Attaches an on-chain memo to a USDC transfer via Arc Testnet's
+  predeployed Memo contract, using `createContractExecutionTransaction` so signing still goes
+  through the existing wallet/entity-secret setup (no raw private key). Builds the inner ERC-20
+  `transfer` calldata and the memo's `bytes32` ID/payload locally with `viem`, then submits a
+  single `memo(address,bytes,bytes32,bytes)` contract call. Same amount/direction CLI pattern as
+  `send-assets.ts`, plus a memo text argument.
+
 ## Tech stack
 
 - Node.js 22+
@@ -86,6 +93,7 @@ wallet creation, USDC/EURC transfers, and Circle Gateway's cross-chain Unified B
 | `gateway-deposit` | Deposits USDC from a wallet into its Gateway Unified Balance | `npm run gateway-deposit -- 1 2` (amount, wallet `1`/`2` — both optional, default `1 1`) |
 | `gateway-spend` | Spends/mints USDC from wallet 1's Unified Balance to wallet 2 | `npm run gateway-spend -- 1` (amount optional, default `1`) |
 | `gateway-balances` | Prints confirmed + pending Unified Balance across all supported chains | `npm run gateway-balances -- 2` (wallet `1`/`2`, default `1`) |
+| `send-with-memo` | Transfers USDC with an on-chain memo attached | `npm run send-with-memo -- 1 "invoice-2026-0001" 2to1` (amount, memo text, direction — all optional, default `1 test-memo 1to2`) |
 
 `retire-wallet.ts` has no npm script by design (not meant to run automatically). Invoke it
 directly when needed:

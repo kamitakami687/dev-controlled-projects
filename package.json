@@ -11,7 +11,8 @@
     "send": "node --env-file=.env --import=tsx send-assets.ts",
     "gateway-deposit": "node --env-file=.env --import=tsx gateway-deposit.ts",
     "gateway-spend": "node --env-file=.env --import=tsx gateway-spend.ts",
-    "gateway-balances": "node --env-file=.env --import=tsx gateway-balances.ts"
+    "gateway-balances": "node --env-file=.env --import=tsx gateway-balances.ts",
+    "send-with-memo": "tsx --env-file=.env memos/send-with-memo.ts"
   },
   "keywords": [],
   "author": "",
